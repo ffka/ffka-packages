@@ -1,0 +1,2 @@
+*/1  * * * *  /usr/bin/ffka-check-gw-reachability
+*/30 * * * *  /usr/bin/ffka-switch-domain

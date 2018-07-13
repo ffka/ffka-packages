@@ -1,0 +1,25 @@
+#! /bin/sh
+
+# ATTENTION: Set file in /usr/bin/ffka-switch-domain as well!
+FILE=/tmp/ffka_gw_unreach
+GW_COUNT=$(eval "batctl gwl | wc -l")
+GW_COUNT=`expr $GW_COUNT - 2`
+
+if [ $GW_COUNT -gt 0 ]
+then
+    echo "Gateways reachable"
+    if [ -e $FILE ]
+    then
+        echo "Removing gateway unreachable notice"
+        rm $FILE
+    fi
+else
+    echo "Gateways unreachable"
+    if [ -e $FILE ]
+    then
+        echo "Gateway unreachable notice already present"
+    else
+        echo "Placing gateway unreachable notice"
+        date +'%s' > $FILE
+    fi
+fi

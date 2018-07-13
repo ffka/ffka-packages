@@ -1,0 +1,26 @@
+#!/usr/bin/lua
+
+local uci = require('simple-uci').cursor()
+
+-- Get Autoupdater mirror
+local mirrors = uci:get_list('autoupdater', 'stable', 'mirror')
+
+-- As we have only one mirror, read the first
+local mirror = nil
+for k in pairs(mirrors) do
+  mirror = k
+end
+
+-- Decide target-domain based on mirror
+local domain = nil
+if mirror == "http://firmware.update.ortenau.freifunk.net/firmware/stable/sysupgrade" then
+  domain = "ortl"
+else if mirror == "http://pf-lug.de/freifunk/firmware/stable/sysupgrade" then
+  domain = "pfl"
+end
+
+-- In case domain relation is found, set domain
+if domain ~= nil then
+  uci:set('gluon', 'core', 'domain', domain)
+  uci:commit('gluon')
+end
