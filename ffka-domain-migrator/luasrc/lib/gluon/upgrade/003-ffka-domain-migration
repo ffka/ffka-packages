@@ -13,10 +13,10 @@ end
 
 -- Decide target-domain based on mirror
 local domain = nil
-if mirror == "http://firmware.update.ortenau.freifunk.net/firmware/stable/sysupgrade" then
-  domain = "ortl"
-else if mirror == "http://pf-lug.de/freifunk/firmware/stable/sysupgrade" then
-  domain = "pfl"
+if string.match(mirror, "firmware.update.ortenau.freifunk.net") then
+  domain = "legacy_ffog"
+else if string.match(mirror, "updates.services.ffhoh.net") then
+  domain = "legacy_ffhoh"
 end
 
 -- In case domain relation is found, set domain
