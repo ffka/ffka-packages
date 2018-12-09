@@ -15,7 +15,7 @@ end
 local domain = nil
 if string.match(mirror, "firmware.update.ortenau.freifunk.net") then
   domain = "legacy_ffog"
-else if string.match(mirror, "updates.services.ffhoh.net") then
+elseif string.match(mirror, "updates.services.ffhoh.net") then
   domain = "legacy_ffhoh"
 end
 
