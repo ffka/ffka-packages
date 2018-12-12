@@ -7,8 +7,8 @@ local mirrors = uci:get_list('autoupdater', 'stable', 'mirror')
 
 -- As we have only one mirror, read the first
 local mirror = nil
-for k in pairs(mirrors) do
-  mirror = k
+for k, v in ipairs(mirrors) do
+  mirror = v
 end
 
 -- Decide target-domain based on mirror
