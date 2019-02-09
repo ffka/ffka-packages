@@ -1,0 +1,31 @@
+#!/usr/bin/lua
+
+local util = require 'gluon.util'
+local sysconfig = require 'gluon.sysconfig'
+local uci = require('simple-uci').cursor()
+
+local psk_nodeids = {'000000000000', '111111111111'}
+local primary_mac = sysconfig.primary_mac:gsub(":",""):lower()
+
+local is_psk = false
+
+for _, v in ipairs(psk_nodeids) do
+	if v == primary_mac then
+		is_psk = true
+	end
+end
+
+if not is_psk then
+	os.exit(0)
+end
+
+util.foreach_radio(uci, function(radio, index, config)
+	local radio_name = radio['.name']
+	local name = 'client_' .. radio_name
+
+	uci:set('wireless', name, 'encryption', 'psk2')
+	uci:set('wireless', name, 'key', 'FRE!funk#')
+	uci:set('wireless', name, 'ssid', 'india.karlsruhe.freifunk.net')
+end)
+
+uci:save('wireless')
