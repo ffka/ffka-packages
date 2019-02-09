@@ -4,7 +4,7 @@ local util = require 'gluon.util'
 local sysconfig = require 'gluon.sysconfig'
 local uci = require('simple-uci').cursor()
 
-local psk_nodeids = {'000000000000', '111111111111'}
+local psk_nodeids = {'3431c49c84b2', '111111111111'}
 local primary_mac = sysconfig.primary_mac:gsub(":",""):lower()
 
 local is_psk = false
@@ -25,7 +25,7 @@ util.foreach_radio(uci, function(radio, index, config)
 
 	uci:set('wireless', name, 'encryption', 'psk2')
 	uci:set('wireless', name, 'key', 'FRE!funk#')
-	uci:set('wireless', name, 'ssid', 'india.karlsruhe.freifunk.net')
+	uci:set('wireless', name, 'ssid', 'karlsruhe.unfreifunk.net')
 end)
 
 uci:save('wireless')
